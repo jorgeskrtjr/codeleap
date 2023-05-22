@@ -1,0 +1,55 @@
+.container {
+    box-sizing: border-box;
+
+    width: 45%;
+    height: 290px;
+
+    background: #FFFFFF;
+    border: 1px solid #999999;
+    border-radius: 16px;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    
+    margin: 25px;
+    
+}
+
+
+.topo {
+    display: flex;
+    
+    justify-content: space-between;
+
+    border-radius: 16px 16px 0px 0px;
+    margin-top: 0px;
+
+    width: 100%;
+    height: 50px;
+
+    color: #FFFFFF;
+    background-color: #7695EC;
+    border: 1px solid #7695EC;
+    
+  }
+  
+  .title{
+    margin: 12px;
+    font-size: 24px;
+  }
+
+  .contentMid{
+    margin: 15px;
+    font-size: 17px;
+  }
+
+  .containerIcons{
+    display: flex;
+    margin: 2%;
+  }
+
+  .icon{
+    margin-right: 15px;
+    height: 100%;
+    width: 100%;
+  }
+

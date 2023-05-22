@@ -1,23 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
+import Post from './components/Post';
+import Login from './components/Login'
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import axios from 'axios';
+
 
 function App() {
+
+  const [data, setData] = useState([])
+
+  const getData = async () => {
+
+    try {
+
+      const response = await axios.get('https://dev.codeleap.co.uk/careers/')
+      console.log(response.data)
+      setData(response.data)
+
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>       
+          <Route path="/" element={<Post></Post>} />
+          <Route path="/login" element={<Login></Login>} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
