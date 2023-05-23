@@ -5,7 +5,7 @@ function YourMind(){
         <div className={styles.container}>
             <h2>What´s on your mind ?</h2>
             
-            <div className={styles.form}>
+                <div className={styles.form}>
                     <form className={styles.form}>
                         
                         <label>Title</label>
