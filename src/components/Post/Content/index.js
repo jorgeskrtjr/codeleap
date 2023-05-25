@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Form from 'react-bootstrap/Form';
 
 function Content({ issue }) {
 
@@ -34,14 +35,26 @@ function Content({ issue }) {
                         <AiOutlineDelete className={styles.icon} style={{ cursor: 'pointer' }} />
                     </span>
                 </div>
-                
+
                 <Modal show={showEdit} onHide={handleCloseEdit}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
+                        <Modal.Title>Edit</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body> to edit</Modal.Body>
+
+                    <Form className="m-2">
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control type="text" placeholder="Title" />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Content</Form.Label>
+                            <Form.Control type="text" placeholder="Content" />
+                        </Form.Group>
+                    </Form>
+
                     <Modal.Footer>
-                       
+
                         <Button variant="secondary" onClick={handleCloseEdit}>
                             Close
                         </Button>
@@ -50,7 +63,6 @@ function Content({ issue }) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-
 
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
