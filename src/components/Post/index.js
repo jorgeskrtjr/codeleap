@@ -5,11 +5,8 @@ import Content from './Content';
 import YourMind from './YourMind';
 
 
-function Post(props) {
+function Post() {
   
-  const { name } = props
-
-  console.log(" ===> " + name)
 
   const [data, setData] = useState([])
 
@@ -32,9 +29,8 @@ function Post(props) {
 
   return (
     <div className={styles.container}>
-      
-            <YourMind></YourMind>
-            
+
+          <YourMind></YourMind>      
          {
             data.map(issue => {
               return(
