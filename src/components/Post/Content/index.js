@@ -10,35 +10,50 @@ import axios from 'axios';
 function Content({ issue }) {
 
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [showDelete, setShowDelete] = useState(false);
 
     const [showEdit, setShowEdit] = useState(false);
 
+    const handleCloseDelete = async () => {
+
+        try {
+            const response = await axios.delete(`https://dev.codeleap.co.uk/careers/${issue.id}/`);
+
+            if (response.status === 204) {
+                console.log('Delete realizado com sucesso')
+            } else {
+                console.log('Falha ao deletar post')
+            }
+        } catch {
+            console.log('Erro ao fazer requisição: '.err)
+        }
+
+        window.location.reload()
+
+        setShowEdit(false);
+    }
+
+    const handleShowDelete = () => setShowDelete(true);
+
     const handleCloseEdit = async () => {
-        
-        const patchData = { 
-            title: title, 
+
+        const patchData = {
+            title: title,
             content: content
         }
 
         try {
             const response = await axios.patch(`https://dev.codeleap.co.uk/careers/${issue.id}/`, patchData);
-        
             if (response.status === 200) {
-              console.log('Patch atualizado com sucesso');
+                console.log('Patch atualizado com sucesso');
 
             } else {
-              console.log('Falha ao atualizar post');
+                console.log('Falha ao atualizar post');
             }
-          } catch (err) {
+        } catch (err) {
             console.log('Erro ao fazer requisição:', err);
-          }
+        }
 
-        console.log(issue)
-        
         window.location.reload()
 
         setShowEdit(false);
@@ -48,17 +63,23 @@ function Content({ issue }) {
 
     const setData = (issue) => {
         console.log(issue);
-     }
+    }
 
 
-     const[title, setTitle] = useState(issue.title)
-     const[content, setContent] = useState(issue.content)
+    const [title, setTitle] = useState(issue.title)
+    const [content, setContent] = useState(issue.content)
 
-     const handleShowEditClose = () =>{
-      
-        setShowEdit(false);
+    const handleShowEditClose = () => {
 
-     }
+        setShowEdit(false)
+
+    }
+
+    const handleShowDeleteClose = () => {
+
+        setShowDelete(false)
+
+    }
 
     return (
         <div className={styles.container}>
@@ -73,8 +94,8 @@ function Content({ issue }) {
                         <AiOutlineEdit onClick={() => setData(issue)} className={styles.icon} style={{ cursor: 'pointer' }} />
                     </span>
 
-                    <span onClick={handleShow}>
-                        <AiOutlineDelete className={styles.icon} style={{ cursor: 'pointer' }} />
+                    <span onClick={handleShowDelete}>
+                        <AiOutlineDelete onClick={() => setData(issue)} className={styles.icon} style={{ cursor: 'pointer' }} />
                     </span>
                 </div>
 
@@ -86,7 +107,7 @@ function Content({ issue }) {
                     <Form className="m-2">
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Title</Form.Label>
-                            <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                            <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -105,16 +126,28 @@ function Content({ issue }) {
                     </Modal.Footer>
                 </Modal>
 
-                <Modal show={show} onHide={handleClose}>
+                <Modal show={showDelete} onHide={handleCloseDelete}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
+                        <Modal.Title>Delete</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>to delete</Modal.Body>
+                    <Modal.Body>
+                        <Form className="m-2">
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Title</Form.Label>
+                                <Form.Control type="text" value={title} />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="formBasicPassword">
+                                <Form.Label>Content</Form.Label>
+                                <Form.Control type="text" value={content} />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button variant="secondary" onClick={handleShowDeleteClose}>
                             Close
                         </Button>
-                        <Button variant="danger" onClick={handleClose}>
+                        <Button variant="danger" onClick={handleCloseDelete}>
                             delete
                         </Button>
                     </Modal.Footer>

@@ -35,6 +35,9 @@ function YourMind(){
       } catch (err) {
         console.log('Erro ao fazer requisição:', err);
       }
+
+      window.location.reload()
+
     };
     
 
