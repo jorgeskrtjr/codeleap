@@ -5,8 +5,10 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 
 function Content({ issue }) {
+
 
     const [show, setShow] = useState(false);
 
@@ -15,8 +17,42 @@ function Content({ issue }) {
 
     const [showEdit, setShowEdit] = useState(false);
 
-    const handleCloseEdit = () => setShowEdit(false);
+    const handleCloseEdit = async () => {
+        
+        const patchData = { 
+            title: title, 
+            content: content
+        }
+
+        try {
+            const response = await axios.patch(`https://dev.codeleap.co.uk/careers/${issue.id}/`, patchData);
+        
+            if (response.status === 200) {
+              console.log('Patch atualizado com sucesso');
+
+            } else {
+              console.log('Falha ao atualizar post');
+            }
+          } catch (err) {
+            console.log('Erro ao fazer requisição:', err);
+          }
+
+        console.log(issue)
+        
+        window.location.reload()
+
+        setShowEdit(false);
+    }
+
     const handleShowEdit = () => setShowEdit(true);
+
+    const setData = (issue) => {
+        console.log(issue);
+     }
+
+
+     const[title, setTitle] = useState(issue.title)
+     const[content, setContent] = useState(issue.content)
 
     return (
         <div className={styles.container}>
@@ -28,7 +64,7 @@ function Content({ issue }) {
                 <div className={styles.containerIcons}>
 
                     <span onClick={handleShowEdit}>
-                        <AiOutlineEdit className={styles.icon} style={{ cursor: 'pointer' }} />
+                        <AiOutlineEdit onClick={() => setData(issue)} className={styles.icon} style={{ cursor: 'pointer' }} />
                     </span>
 
                     <span onClick={handleShow}>
@@ -44,17 +80,16 @@ function Content({ issue }) {
                     <Form className="m-2">
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Title</Form.Label>
-                            <Form.Control type="text" placeholder="Title" />
+                            <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Content</Form.Label>
-                            <Form.Control type="text" placeholder="Content" />
+                            <Form.Control type="text" value={content} onChange={(e) => setContent(e.target.value)} />
                         </Form.Group>
                     </Form>
 
                     <Modal.Footer>
-
                         <Button variant="secondary" onClick={handleCloseEdit}>
                             Close
                         </Button>
