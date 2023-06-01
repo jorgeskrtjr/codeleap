@@ -54,6 +54,12 @@ function Content({ issue }) {
      const[title, setTitle] = useState(issue.title)
      const[content, setContent] = useState(issue.content)
 
+     const handleShowEditClose = () =>{
+      
+        setShowEdit(false);
+
+     }
+
     return (
         <div className={styles.container}>
 
@@ -90,7 +96,7 @@ function Content({ issue }) {
                     </Form>
 
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleCloseEdit}>
+                        <Button variant="secondary" onClick={handleShowEditClose}>
                             Close
                         </Button>
                         <Button variant="primary" onClick={handleCloseEdit}>
