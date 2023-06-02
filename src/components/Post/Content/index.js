@@ -18,6 +18,7 @@ function Content({ issue }) {
 
         try {
             const response = await axios.delete(`https://dev.codeleap.co.uk/careers/${issue.id}/`);
+            window.location.reload()
 
             if (response.status === 204) {
                 console.log('Delete realizado com sucesso')
@@ -27,8 +28,6 @@ function Content({ issue }) {
         } catch {
             console.log('Erro ao fazer requisição: '.err)
         }
-
-        window.location.reload()
 
         setShowEdit(false);
     }
@@ -46,6 +45,7 @@ function Content({ issue }) {
             const response = await axios.patch(`https://dev.codeleap.co.uk/careers/${issue.id}/`, patchData);
             if (response.status === 200) {
                 console.log('Patch atualizado com sucesso');
+                window.location.reload()
 
             } else {
                 console.log('Falha ao atualizar post');
@@ -53,8 +53,6 @@ function Content({ issue }) {
         } catch (err) {
             console.log('Erro ao fazer requisição:', err);
         }
-
-        window.location.reload()
 
         setShowEdit(false);
     }

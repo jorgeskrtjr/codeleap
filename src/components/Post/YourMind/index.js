@@ -28,6 +28,8 @@ function YourMind(){
   
         if (response.status === 201) {
           console.log('Post criado com sucesso');
+          window.location.reload()
+
           // Lógica adicional, como redirecionar ou atualizar a lista de posts
         } else {
           console.log('Falha ao criar post');
@@ -35,8 +37,6 @@ function YourMind(){
       } catch (err) {
         console.log('Erro ao fazer requisição:', err);
       }
-
-      window.location.reload()
 
     };
     

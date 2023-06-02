@@ -14,7 +14,7 @@ function Login() {
     }
 
     const handleClick = () => {
-        navigate('/', { state: { name } });
+        navigate('/post', { state: { name } });
     }
 
     return (
